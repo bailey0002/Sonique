@@ -2,151 +2,141 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Sonique Prototype UI — Dark Preview</title>
+  <title>Sonique Prototype UI — Dark / Electric</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- Modern geometric font (Futura/Tw Cen feel) -->
+  <!-- Contemporary geometric font (Futura-like) -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root{
-      /* Dark soft-UI palette */
-      --bg0:#0f1115;      /* page background */
-      --bg1:#14171d;      /* card base */
-      --bg2:#1b1f27;      /* inputs / raised */
-      --text:#e9eef7;     /* primary text */
-      --muted:#a7b0c0;    /* secondary text */
-      --accent:#93b4ff;   /* cool blue accent */
-      --accent-strong:#6fa0ff;
-      --shadow-dark:#0a0c10; /* soft shadows for depth */
-      --shadow-light:#1f2530;
+      /* Matte dark + electric teal */
+      --bg0:#0e1014;      /* page */
+      --bg1:#12151b;      /* card base (matte) */
+      --bg2:#161b23;      /* inputs / raised */
+      --edge:#1f2633;     /* subtle borders */
+      --text:#eaf0ff;     /* primary text */
+      --muted:#9fb0c8;    /* secondary */
+      --accent:#2ed0ff;   /* electric teal */
+      --accent-strong:#19b6e5;
+      --glow: 0 0 24px rgba(46,208,255,.20);
     }
 
     *{box-sizing:border-box}
     body{
       background:
-        radial-gradient(1100px 700px at 20% 0%, #141823 0%, var(--bg0) 60%),
-        linear-gradient(180deg, #0e1117 0%, #0f1115 100%);
-      color: var(--text);
-      font-family: "Poppins","Futura","Century Gothic",system-ui,-apple-system,Segoe UI,Arial,sans-serif;
-      max-width: 980px; margin: 28px auto; padding: 0 16px;
+        radial-gradient(1100px 700px at 25% -10%, #161b25 0%, var(--bg0) 55%),
+        linear-gradient(180deg,#0d0f13 0%, #0e1014 100%);
+      color:var(--text);
+      font-family:"Poppins","Futura","Century Gothic",system-ui,-apple-system,Segoe UI,Arial,sans-serif;
+      max-width:980px; margin:28px auto; padding:0 16px;
     }
 
     .grid{display:grid; gap:16px}
-    @media (min-width: 900px){ .grid{ grid-template-columns: 1.1fr 1fr } }
+    @media (min-width:900px){ .grid{ grid-template-columns:1.1fr 1fr } }
 
-    /* Cards / panels */
+    /* Cards / panels (matte with crisp rim) */
     .card{
-      background: linear-gradient(145deg, var(--bg1), #12161d);
-      border-radius: 18px;
-      padding: 20px;
-      box-shadow:
-        12px 12px 24px rgba(0,0,0,.55),
-        -8px -8px 20px rgba(54,64,80,.12);
-      border: 1px solid #1d2330;
+      background:linear-gradient(180deg, var(--bg1) 0%, #10131a 100%);
+      border:1px solid var(--edge);
+      border-radius:18px;
+      padding:20px;
+      box-shadow:12px 20px 40px rgba(0,0,0,.55);
     }
 
-    h1{margin:0 0 8px; font-weight:600; font-size: 1.9rem}
-    h2{margin:10px 0 12px; font-weight:600; font-size: 1.05rem; color:#cfd7e6}
-    .muted{color: var(--muted); font-size:.92rem; margin: 0 0 12px}
+    h1{margin:0 0 8px; font-weight:600; font-size:1.9rem}
+    h2{margin:10px 0 12px; font-weight:600; font-size:1.05rem; color:#d5e1f7}
+    .muted{color:var(--muted); font-size:.92rem; margin:0 0 12px}
 
-    /* Buttons: pill, raised */
+    /* Buttons: slick 3D, inner bevel, neon edge on hover */
     button{
-      width:100%;
-      margin:10px 0; padding:13px 14px;
-      border: 1px solid #232a39;
-      border-radius: 14px;
-      font-weight:500; font-size:1rem;
-      color: var(--text);
-      background: linear-gradient(145deg, #171c24, #121720);
+      width:100%; margin:10px 0; padding:13px 14px;
+      font-weight:600; font-size:1rem; color:var(--text);
+      background:linear-gradient(180deg, #161b23 0%, #0f1319 100%);
+      border:1px solid var(--edge);
+      border-radius:14px;
       box-shadow:
-        8px 8px 16px rgba(0,0,0,.55),
-        -6px -6px 12px rgba(60,70,90,.12);
-      transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+        inset 0 1px 0 rgba(255,255,255,.04),
+        8px 12px 24px rgba(0,0,0,.5);
+      transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease;
     }
     button:hover{
-      transform: translateY(-2px);
-      border-color: #2a3350;
+      transform:translateY(-1px);
+      border-color:#284059;
       box-shadow:
-        12px 12px 22px rgba(0,0,0,.6),
-        -8px -8px 16px rgba(70,80,100,.16);
+        inset 0 1px 0 rgba(255,255,255,.06),
+        10px 16px 28px rgba(0,0,0,.55),
+        0 0 0 1px rgba(46,208,255,.25),
+        var(--glow);
     }
 
-    /* Inputs & selects */
+    /* Primary accent buttons (wrap in <div class="primary">...</div>) */
+    .primary button{
+      background:linear-gradient(180deg,#14202a 0%, #0e1820 100%);
+      border-color:#285a6d;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.05),
+        8px 12px 24px rgba(0,0,0,.55),
+        0 0 0 1px rgba(46,208,255,.18);
+    }
+
+    /* Inputs / selects: matte wells with precise rim */
     input, select{
       width:100%; margin:8px 0; padding:12px 14px; font-size:1rem;
-      color: var(--text);
-      border: 1px solid #232a39; border-radius:12px;
-      background: linear-gradient(145deg, var(--bg2), #141922);
-      box-shadow: inset 3px 3px 8px rgba(0,0,0,.55), inset -3px -3px 8px rgba(60,70,90,.14);
-      outline: none;
+      color:var(--text);
+      background:linear-gradient(180deg, var(--bg2) 0%, #121720 100%);
+      border:1px solid var(--edge);
+      border-radius:12px;
+      box-shadow:inset 0 2px 10px rgba(0,0,0,.55);
+      outline:none;
     }
     input:focus, select:focus{
-      border-color: var(--accent);
+      border-color:#2a6f86;
       box-shadow:
-        inset 3px 3px 8px rgba(0,0,0,.55),
-        inset -3px -3px 8px rgba(60,70,90,.14),
-        0 0 0 2px rgba(147,180,255,.25);
+        inset 0 2px 10px rgba(0,0,0,.55),
+        0 0 0 2px rgba(46,208,255,.22),
+        var(--glow);
     }
 
     /* Stems grid */
-    .stems{
-      display:grid; gap:12px; grid-template-columns:repeat(4,1fr);
-    }
+    .stems{ display:grid; gap:12px; grid-template-columns:repeat(4,1fr) }
     .stem{
-      text-align:center; padding:12px; border-radius:12px; font-weight:500;
-      color:#dfe7f7;
-      background: linear-gradient(145deg, #18202c, #121821);
-      border: 1px solid #212838;
-      box-shadow:
-        6px 6px 12px rgba(0,0,0,.55),
-        -6px -6px 12px rgba(60,70,90,.14);
+      text-align:center; padding:12px; font-weight:600; color:#dfe8ff;
+      background:linear-gradient(180deg,#18212b 0%, #111821 100%);
+      border:1px solid var(--edge);
+      border-radius:12px;
+      box-shadow:6px 10px 20px rgba(0,0,0,.5);
     }
 
-    /* Compact rows */
+    /* Rows */
     .row{display:grid; gap:12px}
-    @media (min-width: 720px){
-      .row-2{ grid-template-columns: 1fr 1fr }
-      .row-3{ grid-template-columns: 1fr 1fr 1fr }
+    @media (min-width:720px){
+      .row-2{ grid-template-columns:1fr 1fr }
+      .row-3{ grid-template-columns:1fr 1fr 1fr }
     }
 
-    /* Slider (range) */
-    .slider{ margin: 10px 0 }
-    .slider label{ display:block; margin-bottom:6px; font-size:.9rem; color:#c9d2e6 }
+    /* Slider */
+    .slider{ margin:10px 0 }
+    .slider label{ display:block; margin-bottom:6px; font-size:.9rem; color:#cbd6ea }
     input[type="range"]{
       width:100%; appearance:none; height:10px; border-radius:8px; outline:none;
-      background: linear-gradient(90deg, #1a2130, #0f141c);
-      border: 1px solid #232a39;
-      box-shadow:
-        inset 3px 3px 8px rgba(0,0,0,.55),
-        inset -3px -3px 8px rgba(60,70,90,.14);
+      background:linear-gradient(90deg,#131922,#0e141c);
+      border:1px solid var(--edge);
+      box-shadow:inset 0 2px 10px rgba(0,0,0,.55);
     }
     input[type="range"]::-webkit-slider-thumb{
       appearance:none; width:18px; height:18px; border-radius:50%;
-      background: radial-gradient(circle at 30% 30%, var(--accent-strong), var(--accent));
-      border: 1px solid #2c3960;
-      box-shadow: 0 0 0 3px rgba(147,180,255,.18);
+      background:radial-gradient(circle at 35% 35%, var(--accent) 0%, var(--accent-strong) 60%, #0e1620 61%);
+      border:1px solid #2b5f73;
+      box-shadow:0 0 0 3px rgba(46,208,255,.15), 0 0 10px rgba(46,208,255,.35);
       cursor:pointer;
     }
 
-    /* Chips / meta info */
+    /* Chips / metadata */
     .chiprow{ display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 2px }
     .chip{
-      padding:7px 10px; border-radius:12px; font-weight:500; font-size:.92rem; color:#d6def0;
-      background: linear-gradient(145deg, #151a22, #10151c);
-      border: 1px solid #1f2636;
-      box-shadow:
-        6px 6px 12px rgba(0,0,0,.55),
-        -6px -6px 12px rgba(60,70,90,.14);
-    }
-
-    /* Accent buttons (if needed) — wrap in <div class="primary"> ... */
-    .primary button{
-      background: linear-gradient(145deg, #1b2440, #141c34);
-      border-color: #2a3350;
-    }
-    .primary button:hover{
-      box-shadow:
-        14px 14px 26px rgba(0,0,0,.6),
-        -10px -10px 18px rgba(70,80,100,.18);
+      padding:7px 10px; border-radius:12px; font-weight:600; font-size:.92rem; color:#d6e5ff;
+      background:linear-gradient(180deg,#141b24 0%, #0f151c 100%);
+      border:1px solid var(--edge);
+      box-shadow:6px 10px 20px rgba(0,0,0,.5);
     }
   </style>
 </head>
