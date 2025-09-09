@@ -2,23 +2,22 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Sonique UI Theme Preview</title>
-  <!-- Modern geometric font (Poppins as Futura-like stand-in) -->
+  <title>Sonique Prototype UI Preview</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root{
       --bg:#EAF1FF;
       --panel:#F6F8FE;
       --text:#2B2F36;
-      --accent:#8FB5FF;       /* refined blue */
+      --accent:#8FB5FF;
       --shadow-dark:#CFD6E6;
       --shadow-light:#FFFFFF;
     }
     body{
       background: radial-gradient(1200px 800px at 15% 10%, #F8FAFF 0%, var(--bg) 50%, #E6EEFF 100%);
       color: var(--text);
-      font-family: "Poppins", "Futura", "Century Gothic", sans-serif;
-      max-width: 560px; margin: 40px auto; padding: 0 16px;
+      font-family: "Poppins","Futura","Century Gothic",sans-serif;
+      max-width: 900px; margin: 40px auto; padding: 0 16px;
     }
     .card{
       background: var(--panel);
@@ -27,7 +26,7 @@
       margin-bottom: 24px;
       box-shadow: 10px 10px 20px var(--shadow-dark), -10px -10px 20px var(--shadow-light);
     }
-    h1{margin:0;font-weight:600;font-size:1.8rem;}
+    h1{margin:0;font-weight:600;font-size:2rem;}
     h2{margin:20px 0 10px;font-weight:500;font-size:1.2rem;color:#3a3a40;}
     button{
       width:100%;margin:10px 0;padding:14px;
@@ -37,15 +36,15 @@
       transition:all .15s ease;
     }
     button:hover{transform:translateY(-2px);}
-    input{
-      width:100%;border-radius:14px;border:none;padding:12px 14px;margin:12px 0;
+    input, select{
+      width:100%;border-radius:14px;border:none;padding:12px 14px;margin:8px 0;
       font-size:1rem;
       background:var(--panel);
       box-shadow:inset 6px 6px 12px var(--shadow-dark),inset -6px -6px 12px var(--shadow-light);
     }
     .stems{
       display:grid;
-      grid-template-columns:1fr 1fr;
+      grid-template-columns:repeat(4,1fr);
       gap:12px;
       margin:14px 0;
     }
@@ -57,16 +56,35 @@
       background:var(--panel);
       box-shadow:6px 6px 12px var(--shadow-dark),-6px -6px 12px var(--shadow-light);
     }
+    .slider{
+      margin:16px 0;
+    }
+    .slider label{
+      display:block;margin-bottom:6px;font-size:0.9rem;color:#555;
+    }
+    .range{
+      width:100%;
+      appearance:none;
+      height:10px;
+      border-radius:8px;
+      background:#dbe3f5;
+      outline:none;
+      box-shadow:inset 3px 3px 6px var(--shadow-dark),inset -3px -3px 6px var(--shadow-light);
+    }
+    .range::-webkit-slider-thumb{
+      appearance:none;
+      width:20px;height:20px;border-radius:50%;
+      background:var(--accent);
+      box-shadow:0 0 6px rgba(0,0,0,0.2);
+      cursor:pointer;
+    }
   </style>
 </head>
 <body>
   <section class="card">
-    <h1>Sonique</h1>
+    <h1>Sonique Prototype</h1>
     <button>Upload Track</button>
     <button>Separate Stems</button>
-
-    <h2>Lyrics</h2>
-    <input type="text" placeholder="Enter lyrics here...">
 
     <h2>Stems</h2>
     <div class="stems">
@@ -76,7 +94,35 @@
       <div class="stem">Other</div>
     </div>
 
-    <button>Export Mix</button>
+    <h2>Lyrics</h2>
+    <input type="text" placeholder="Paste or type lyrics here...">
+    <button>Generate Vocals (Bark)</button>
+  </section>
+
+  <section class="card">
+    <h2>GPT Lyric Fit (timing-aware)</h2>
+    <label>Timing window available: 14.26s → 148.01s</label>
+    <input type="text" placeholder="Start (sec)">
+    <input type="text" placeholder="End (sec)">
+    <input type="text" placeholder="Style brief">
+    <input type="number" placeholder="How many options">
+    <select>
+      <option>gpt-4o-mini</option>
+      <option>gpt-4</option>
+    </select>
+
+    <div class="slider">
+      <label>Creativity (temperature)</label>
+      <input type="range" min="0" max="1" step="0.1" value="0.6" class="range">
+    </div>
+
+    <button>Run GPT Fit</button>
+  </section>
+
+  <section class="card">
+    <h2>Output</h2>
+    <button>Preview Aligned Vocals</button>
+    <button>Mix with Instrumental</button>
   </section>
 </body>
 </html>
