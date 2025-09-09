@@ -4,20 +4,19 @@
   <meta charset="UTF-8" />
   <title>Sonique Prototype UI — Dark / Electric</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- Contemporary geometric font (Futura-like) -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Sleek, ChatGPT-like font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root{
-      /* Matte dark + electric teal */
-      --bg0:#0e1014;      /* page */
-      --bg1:#12151b;      /* card base (matte) */
-      --bg2:#161b23;      /* inputs / raised */
-      --edge:#1f2633;     /* subtle borders */
-      --text:#eaf0ff;     /* primary text */
-      --muted:#9fb0c8;    /* secondary */
-      --accent:#2ed0ff;   /* electric teal */
+      --bg0:#0e1014;
+      --bg1:#12151b;
+      --bg2:#161b23;
+      --edge:#1f2633;
+      --text:#eaf0ff;
+      --muted:#9fb0c8;
+      --accent:#2ed0ff;
       --accent-strong:#19b6e5;
-      --glow: 0 0 24px rgba(46,208,255,.20);
+      --glow: 0 0 24px rgba(46,208,255,.25);
     }
 
     *{box-sizing:border-box}
@@ -26,14 +25,14 @@
         radial-gradient(1100px 700px at 25% -10%, #161b25 0%, var(--bg0) 55%),
         linear-gradient(180deg,#0d0f13 0%, #0e1014 100%);
       color:var(--text);
-      font-family:"Poppins","Futura","Century Gothic",system-ui,-apple-system,Segoe UI,Arial,sans-serif;
+      font-family:"Inter","Helvetica Neue","SF Pro Text",system-ui,sans-serif;
+      font-weight:300;
       max-width:980px; margin:28px auto; padding:0 16px;
     }
 
     .grid{display:grid; gap:16px}
     @media (min-width:900px){ .grid{ grid-template-columns:1.1fr 1fr } }
 
-    /* Cards / panels (matte with crisp rim) */
     .card{
       background:linear-gradient(180deg, var(--bg1) 0%, #10131a 100%);
       border:1px solid var(--edge);
@@ -42,45 +41,31 @@
       box-shadow:12px 20px 40px rgba(0,0,0,.55);
     }
 
-    h1{margin:0 0 8px; font-weight:600; font-size:1.9rem}
-    h2{margin:10px 0 12px; font-weight:600; font-size:1.05rem; color:#d5e1f7}
+    h1{margin:0 0 10px; font-weight:400; font-size:1.9rem; color:var(--accent)}
+    h2{margin:10px 0 12px; font-weight:400; font-size:1.1rem; color:var(--accent)}
     .muted{color:var(--muted); font-size:.92rem; margin:0 0 12px}
 
-    /* Buttons: slick 3D, inner bevel, neon edge on hover */
     button{
       width:100%; margin:10px 0; padding:13px 14px;
-      font-weight:600; font-size:1rem; color:var(--text);
+      font-weight:400; font-size:1rem; color:var(--text);
       background:linear-gradient(180deg, #161b23 0%, #0f1319 100%);
       border:1px solid var(--edge);
       border-radius:14px;
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.04),
-        8px 12px 24px rgba(0,0,0,.5);
-      transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.04), 8px 12px 24px rgba(0,0,0,.5);
+      transition:all .15s ease;
     }
     button:hover{
-      transform:translateY(-1px);
-      border-color:#284059;
+      border-color:var(--accent);
       box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.06),
-        10px 16px 28px rgba(0,0,0,.55),
         0 0 0 1px rgba(46,208,255,.25),
-        var(--glow);
+        var(--glow),
+        8px 14px 28px rgba(0,0,0,.55);
+      transform:translateY(-1px);
     }
 
-    /* Primary accent buttons (wrap in <div class="primary">...</div>) */
-    .primary button{
-      background:linear-gradient(180deg,#14202a 0%, #0e1820 100%);
-      border-color:#285a6d;
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.05),
-        8px 12px 24px rgba(0,0,0,.55),
-        0 0 0 1px rgba(46,208,255,.18);
-    }
-
-    /* Inputs / selects: matte wells with precise rim */
     input, select{
       width:100%; margin:8px 0; padding:12px 14px; font-size:1rem;
+      font-family:inherit;
       color:var(--text);
       background:linear-gradient(180deg, var(--bg2) 0%, #121720 100%);
       border:1px solid var(--edge);
@@ -89,61 +74,51 @@
       outline:none;
     }
     input:focus, select:focus{
-      border-color:#2a6f86;
-      box-shadow:
-        inset 0 2px 10px rgba(0,0,0,.55),
-        0 0 0 2px rgba(46,208,255,.22),
-        var(--glow);
+      border-color:var(--accent);
+      box-shadow:0 0 0 2px rgba(46,208,255,.25), var(--glow), inset 0 2px 10px rgba(0,0,0,.55);
     }
 
-    /* Stems grid */
     .stems{ display:grid; gap:12px; grid-template-columns:repeat(4,1fr) }
     .stem{
-      text-align:center; padding:12px; font-weight:600; color:#dfe8ff;
+      text-align:center; padding:12px; font-weight:400; color:var(--accent);
       background:linear-gradient(180deg,#18212b 0%, #111821 100%);
       border:1px solid var(--edge);
       border-radius:12px;
       box-shadow:6px 10px 20px rgba(0,0,0,.5);
     }
 
-    /* Rows */
     .row{display:grid; gap:12px}
     @media (min-width:720px){
       .row-2{ grid-template-columns:1fr 1fr }
       .row-3{ grid-template-columns:1fr 1fr 1fr }
     }
 
-    /* Slider */
     .slider{ margin:10px 0 }
-    .slider label{ display:block; margin-bottom:6px; font-size:.9rem; color:#cbd6ea }
+    .slider label{ display:block; margin-bottom:6px; font-size:.9rem; color:var(--accent)}
     input[type="range"]{
-      width:100%; appearance:none; height:10px; border-radius:8px; outline:none;
+      width:100%; appearance:none; height:10px; border-radius:8px;
       background:linear-gradient(90deg,#131922,#0e141c);
       border:1px solid var(--edge);
-      box-shadow:inset 0 2px 10px rgba(0,0,0,.55);
     }
     input[type="range"]::-webkit-slider-thumb{
       appearance:none; width:18px; height:18px; border-radius:50%;
-      background:radial-gradient(circle at 35% 35%, var(--accent) 0%, var(--accent-strong) 60%, #0e1620 61%);
-      border:1px solid #2b5f73;
-      box-shadow:0 0 0 3px rgba(46,208,255,.15), 0 0 10px rgba(46,208,255,.35);
+      background:var(--accent);
+      border:1px solid var(--accent-strong);
+      box-shadow:0 0 12px rgba(46,208,255,.6);
       cursor:pointer;
     }
 
-    /* Chips / metadata */
-    .chiprow{ display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 2px }
+    .chiprow{ display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 }
     .chip{
-      padding:7px 10px; border-radius:12px; font-weight:600; font-size:.92rem; color:#d6e5ff;
+      padding:7px 10px; border-radius:12px; font-weight:400; font-size:.9rem; color:var(--accent);
       background:linear-gradient(180deg,#141b24 0%, #0f151c 100%);
       border:1px solid var(--edge);
-      box-shadow:6px 10px 20px rgba(0,0,0,.5);
     }
   </style>
 </head>
 <body>
 
   <div class="grid">
-    <!-- LEFT COLUMN -->
     <section class="card">
       <h1>Sonique Prototype</h1>
       <p class="muted">Upload, separate stems, and generate aligned vocals.</p>
@@ -166,32 +141,30 @@
       <input placeholder="Paste or type lyrics here…">
       <div class="row row-3">
         <button>Generate Vocals (Bark)</button>
-        <button>Preview Aligned Vocals</button>
+        <button>Preview Aligned</button>
         <button>Mix with Instrumental</button>
       </div>
     </section>
 
-    <!-- RIGHT COLUMN -->
     <section class="card">
-      <h2>GPT Lyric Fit (timing-aware)</h2>
-      <p class="muted">Timing window available: 14.26s → 148.01s</p>
+      <h2>GPT Lyric Fit</h2>
+      <p class="muted">Timing window: 14.26s → 148.01s</p>
 
       <div class="row row-2">
         <input placeholder="Start (sec)" value="14.26">
         <input placeholder="End (sec)" value="148.01">
       </div>
 
-      <input placeholder="Style brief (e.g., moody alt-pop, hopeful, nighttime imagery)">
+      <input placeholder="Style brief (e.g. moody alt-pop)">
       <div class="row row-3">
-        <input type="number" placeholder="How many options" value="8">
+        <input type="number" value="8">
         <select>
           <option>gpt-4o-mini</option>
           <option>gpt-4o</option>
-          <option>gpt-4.1-mini</option>
         </select>
         <div class="slider">
-          <label>Creativity (temperature)</label>
-          <input type="range" min="0" max="1" step="0.05" value="0.70">
+          <label>Creativity</label>
+          <input type="range" min="0" max="1" step="0.05" value="0.7">
         </div>
       </div>
 
@@ -202,12 +175,10 @@
       </div>
 
       <div class="row row-2">
-        <button>Suggest lines for this window</button>
-        <button>Write selection to lyrics.txt</button>
+        <button>Suggest lines</button>
+        <button>Write to lyrics.txt</button>
       </div>
-      <div class="primary">
-        <button>One-Click: Map → Generate → Mix</button>
-      </div>
+      <button>One-Click: Map → Generate → Mix</button>
     </section>
   </div>
 
