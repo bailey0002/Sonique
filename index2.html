@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sonique Prototype UI Preview</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Modern geometric font (good stand-in for Futura/Tw Cen) -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#EAF1FF; --panel:#F6F8FE; --text:#2B2F36;
+      --accent:#8FB5FF; --shadow-dark:#CFD6E6; --shadow-light:#FFFFFF;
+    }
+    *{box-sizing:border-box}
+    body{
+      background: radial-gradient(1200px 800px at 15% 10%, #F8FAFF 0%, var(--bg) 50%, #E6EEFF 100%);
+      color: var(--text);
+      font-family: "Poppins","Futura","Century Gothic",system-ui,-apple-system,Segoe UI,Arial,sans-serif;
+      max-width: 960px; margin: 32px auto; padding: 0 16px;
+    }
+    .grid{display:grid; gap:16px}
+    @media(min-width: 900px){ .grid{ grid-template-columns: 1.1fr 1fr } }
+
+    .card{
+      background: var(--panel);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 10px 10px 20px var(--shadow-dark), -10px -10px 20px var(--shadow-light);
+    }
+    h1{margin:0 0 8px 0; font-size: 2rem; font-weight:600}
+    h2{margin:8px 0 12px; font-size:1.1rem; font-weight:600; color:#3a3a40}
+    .muted{color:#6B7280; font-size:.9rem; margin:0 0 10px}
+
+    button{
+      width:100%; margin:10px 0; padding:14px 16px;
+      border: none; border-radius:16px; font-weight:500; font-size:1rem;
+      background: linear-gradient(145deg,#fff,var(--panel));
+      box-shadow: 8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light);
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+    button:hover{ transform: translateY(-2px) }
+
+    input, select{
+      width:100%; margin:8px 0; padding:12px 14px; font-size:1rem;
+      border:none; border-radius:14px; background:var(--panel);
+      box-shadow: inset 6px 6px 12px var(--shadow-dark), inset -6px -6px 12px var(--shadow-light);
+    }
+    .row{display:grid; gap:12px}
+    @media(min-width:700px){ .row-2{ grid-template-columns:1fr 1fr } .row-3{ grid-template-columns:1fr 1fr 1fr } }
+
+    .stems{
+      display:grid; gap:12px; grid-template-columns:repeat(4,1fr);
+    }
+    .stem{
+      text-align:center; padding:12px; border-radius:14px; font-weight:500;
+      background:var(--panel);
+      box-shadow: 6px 6px 12px var(--shadow-dark), -6px -6px 12px var(--shadow-light);
+    }
+
+    .slider{ margin:12px 0 }
+    .slider label{ display:block; margin-bottom:6px; font-size:.9rem; color:#555 }
+    input[type="range"]{
+      width:100%; appearance:none; height:10px; border-radius:8px; background:#dbe3f5; outline:none;
+      box-shadow: inset 3px 3px 6px var(--shadow-dark), inset -3px -3px 6px var(--shadow-light);
+    }
+    input[type="range"]::-webkit-slider-thumb{
+      appearance:none; width:20px; height:20px; border-radius:50%; background:var(--accent);
+      box-shadow:0 0 6px rgba(0,0,0,.2); cursor:pointer;
+    }
+
+    .chiprow{ display:flex; flex-wrap:wrap; gap:8px; margin:6px 0 2px }
+    .chip{
+      padding:8px 12px; border-radius:14px; font-weight:500; font-size:.95rem;
+      background:var(--panel);
+      box-shadow: 6px 6px 12px var(--shadow-dark), -6px -6px 12px var(--shadow-light);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="grid">
+    <!-- LEFT COLUMN -->
+    <section class="card">
+      <h1>Sonique Prototype</h1>
+      <p class="muted">Upload, separate stems, and generate aligned vocals.</p>
+
+      <button>Upload Track</button>
+      <div class="row row-2">
+        <button>Separate Stems</button>
+        <button>View Stems</button>
+      </div>
+
+      <h2>Stems</h2>
+      <div class="stems">
+        <div class="stem">Vocals</div>
+        <div class="stem">Drums</div>
+        <div class="stem">Bass</div>
+        <div class="stem">Other</div>
+      </div>
+
+      <h2>Lyrics</h2>
+      <input placeholder="Paste or type lyrics here…">
+      <div class="row row-3">
+        <button>Generate Vocals (Bark)</button>
+        <button>Preview Aligned Vocals</button>
+        <button>Mix with Instrumental</button>
+      </div>
+    </section>
+
+    <!-- RIGHT COLUMN -->
+    <section class="card">
+      <h2>GPT Lyric Fit (timing-aware)</h2>
+      <p class="muted">Timing window available: 14.26s → 148.01s</p>
+
+      <div class="row row-2">
+        <input placeholder="Start (sec)" value="14.26">
+        <input placeholder="End (sec)" value="148.01">
+      </div>
+
+      <input placeholder="Style brief (e.g., moody alt-pop, hopeful, nighttime imagery)">
+      <div class="row row-3">
+        <input type="number" placeholder="How many options" value="8">
+        <select>
+          <option>gpt-4o-mini</option>
+          <option>gpt-4o</option>
+          <option>gpt-4.1-mini</option>
+        </select>
+        <div class="slider">
+          <label>Creativity (temperature)</label>
+          <input type="range" min="0" max="1" step="0.05" value="0.70">
+        </div>
+      </div>
+
+      <div class="chiprow">
+        <div class="chip">Word slots ≈ 12</div>
+        <div class="chip">Syllables ≈ 13–19</div>
+        <div class="chip">Preset: en_speaker_3</div>
+      </div>
+
+      <button>Suggest lines for this window</button>
+      <div class="row row-2">
+        <button>Write selection to lyrics.txt</button>
+        <button>One-Click: Map → Generate → Mix</button>
+      </div>
+    </section>
+  </div>
+
+</body>
+</html>
