@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sonique UI Theme Preview</title>
+  <style>
+    /* ===== Sonique — Light Soft UI (Neumorphism) ===== */
+    :root{
+      --bg:#EAF1FF;
+      --panel:#F6F8FE;
+      --text:#2B2F36;
+      --muted:#6B7280;
+      --accent:#A8C7FF;
+      --shadow-dark:#CFD6E6;
+      --shadow-light:#FFFFFF;
+    }
+    body{
+      background: radial-gradient(1200px 800px at 15% 10%, #F8FAFF 0%, var(--bg) 50%, #E6EEFF 100%);
+      color: var(--text);
+      font-family: "SF Pro Display","Helvetica Neue",system-ui,-apple-system,Segoe UI,Arial,sans-serif;
+      max-width: 480px;
+      margin: 40px auto;
+    }
+    .card{
+      background: var(--panel);
+      border-radius: 24px;
+      padding: 22px;
+      margin-bottom: 22px;
+      box-shadow: 10px 10px 20px var(--shadow-dark), -10px -10px 20px var(--shadow-light);
+    }
+    h1,h2{
+      margin-top:0;
+      font-weight:600;
+    }
+    hr{
+      border:none;
+      height:1px;
+      background: linear-gradient(90deg, transparent, #DCE4F7, transparent);
+      margin:14px 0;
+    }
+    button{
+      width:100%;
+      color: var(--text);
+      background: linear-gradient(145deg, #FFFFFF, var(--panel));
+      border:none;
+      border-radius:18px;
+      padding:.9em 1.1em;
+      font-weight:600;
+      margin-bottom:12px;
+      box-shadow: 8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light);
+    }
+    input{
+      width:100%;
+      border-radius:16px;
+      border:none;
+      padding:12px 14px;
+      margin-bottom:12px;
+      background: var(--panel);
+      box-shadow: inset 6px 6px 12px var(--shadow-dark), inset -6px -6px 12px var(--shadow-light);
+    }
+    .chip{
+      display:inline-block;
+      padding:10px 16px;
+      border-radius:18px;
+      margin:4px;
+      box-shadow: 6px 6px 12px var(--shadow-dark), -6px -6px 12px var(--shadow-light);
+      background: var(--panel);
+      font-weight:500;
+    }
+  </style>
+</head>
+<body>
+  <section class="card">
+    <h1>Sonique</h1>
+    <button>Upload Demo Track</button>
+    <button>View Stems</button>
+    <hr>
+    <h2>Lyrics</h2>
+    <input type="text" placeholder="La la la...">
+    <h2>Stems</h2>
+    <div>
+      <div class="chip">Vocals 🎤</div>
+      <div class="chip">Drums 🥁</div>
+      <div class="chip">Bass 🎸</div>
+      <div class="chip">Other 🎹</div>
+    </div>
+    <br>
+    <button>Export Stems</button>
+  </section>
+</body>
+</html>
