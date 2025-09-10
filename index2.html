@@ -2,90 +2,111 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Sonique Prototype UI — Dark / Electric</title>
+  <title>Sonique Prototype UI — Glass / Electric</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- Sleek, ChatGPT-like font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg0:#0e1014;
-      --bg1:#12151b;
-      --bg2:#161b23;
-      --edge:#1f2633;
-      --text:#eaf0ff;
-      --muted:#9fb0c8;
+      /* Base palette */
+      --bg0:#0b0f14;
+      --bg1:#0e131b;
+      --text:#eaf4ff;
+      --muted:#a9bbd3;
+
+      /* Accent */
       --accent:#2ed0ff;
       --accent-strong:#19b6e5;
-      --glow: 0 0 24px rgba(46,208,255,.25);
+
+      /* Glass tokens */
+      --glass-fill: rgba(255,255,255,0.06);
+      --glass-stroke: rgba(255,255,255,0.18);
+      --glass-glow: 0 0 24px rgba(46,208,255,.25);
+      --edge: rgba(255,255,255,0.10);
+      --inner-edge: rgba(255,255,255,0.25);
+      --shadow: 0 20px 50px rgba(0,0,0,.55);
+      --radius-lg: 18px;
+      --radius-md: 14px;
+
+      /* Light streaks */
+      --streak1: rgba(57,180,255,0.16);
+      --streak2: rgba(21,220,190,0.10);
     }
 
     *{box-sizing:border-box}
     body{
-      background:
-        radial-gradient(1100px 700px at 25% -10%, #161b25 0%, var(--bg0) 55%),
-        linear-gradient(180deg,#0d0f13 0%, #0e1014 100%);
-      color:var(--text);
+      margin:0; color:var(--text);
       font-family:"Inter","Helvetica Neue","SF Pro Text",system-ui,sans-serif;
       font-weight:300;
-      max-width:980px; margin:28px auto; padding:0 16px;
+      min-height:100dvh;
+      display:flex; align-items:flex-start; justify-content:center;
+      padding:28px 16px;
+      background:
+        radial-gradient(1200px 800px at 15% -10%, #132031 0%, var(--bg0) 55%),
+        linear-gradient(180deg,#0a0e14 0%, #0b0f14 100%);
+      position:relative; overflow:hidden;
     }
 
-    .grid{display:grid; gap:16px}
+    /* subtle animated light streaks behind the glass */
+    .bg-streak{
+      position:absolute; inset:-20% -10%;
+      background:
+        linear-gradient(110deg, transparent 0 35%, var(--streak1) 45%, transparent 55%),
+        linear-gradient(250deg, transparent 0 55%, var(--streak2) 65%, transparent 75%);
+      filter: blur(40px);
+      animation: drift 22s linear infinite;
+      pointer-events:none;
+    }
+    @keyframes drift{
+      0%   { transform: translate3d(-4%, -2%, 0) rotate(0.0001deg); }
+      50%  { transform: translate3d(4%, 3%, 0)  rotate(0.0001deg); }
+      100% { transform: translate3d(-4%, -2%, 0) rotate(0.0001deg); }
+    }
+
+    .grid{display:grid; gap:16px; width:100%; max-width:980px; position:relative; z-index:1;}
     @media (min-width:900px){ .grid{ grid-template-columns:1.1fr 1fr } }
 
+    /* === Glass card === */
     .card{
-      background:linear-gradient(180deg, var(--bg1) 0%, #10131a 100%);
-      border:1px solid var(--edge);
-      border-radius:18px;
+      position:relative;
       padding:20px;
-      box-shadow:12px 20px 40px rgba(0,0,0,.55);
+      border-radius:var(--radius-lg);
+      background: var(--glass-fill);
+      border: 1px solid var(--glass-stroke);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px) saturate(120%);
+      -webkit-backdrop-filter: blur(14px) saturate(120%);
+    }
+    /* inner glass panel look */
+    .card::before{
+      content:"";
+      position:absolute; inset:1px;
+      border-radius: calc(var(--radius-lg) - 1px);
+      box-shadow: inset 0 1px 0 var(--inner-edge);
+      pointer-events:none;
     }
 
-    h1{margin:0 0 10px; font-weight:400; font-size:1.9rem; color:var(--accent)}
-    h2{margin:10px 0 12px; font-weight:400; font-size:1.1rem; color:var(--accent)}
+    h1{margin:0 0 12px; font-weight:500; font-size:1.9rem; color:var(--accent)}
+    h2{margin:8px 0 12px; font-weight:500; font-size:1.1rem; color:var(--accent)}
     .muted{color:var(--muted); font-size:.92rem; margin:0 0 12px}
 
-    button{
-      width:100%; margin:10px 0; padding:13px 14px;
-      font-weight:400; font-size:1rem; color:var(--text);
-      background:linear-gradient(180deg, #161b23 0%, #0f1319 100%);
+    /* === Glass controls === */
+    button, input, select{
+      font-family:inherit; font-weight:400; font-size:1rem; color:var(--text);
+      width:100%; margin:10px 0; padding:12px 14px;
+      border-radius:var(--radius-md);
       border:1px solid var(--edge);
-      border-radius:14px;
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.04), 8px 12px 24px rgba(0,0,0,.5);
-      transition:all .15s ease;
-    }
-    button:hover{
-      border-color:var(--accent);
-      box-shadow:
-        0 0 0 1px rgba(46,208,255,.25),
-        var(--glow),
-        8px 14px 28px rgba(0,0,0,.55);
-      transform:translateY(-1px);
-    }
-
-    input, select{
-      width:100%; margin:8px 0; padding:12px 14px; font-size:1rem;
-      font-family:inherit;
-      color:var(--text);
-      background:linear-gradient(180deg, var(--bg2) 0%, #121720 100%);
-      border:1px solid var(--edge);
-      border-radius:12px;
-      box-shadow:inset 0 2px 10px rgba(0,0,0,.55);
+      background: linear-gradient(180deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,.05) 100%);
+      backdrop-filter: blur(10px) saturate(120%);
+      -webkit-backdrop-filter: blur(10px) saturate(120%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 10px 24px rgba(0,0,0,.45);
       outline:none;
+      transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
     }
-    input:focus, select:focus{
+    button:hover, input:focus, select:focus{
       border-color:var(--accent);
-      box-shadow:0 0 0 2px rgba(46,208,255,.25), var(--glow), inset 0 2px 10px rgba(0,0,0,.55);
+      box-shadow: var(--glass-glow), 0 10px 26px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.08);
     }
-
-    .stems{ display:grid; gap:12px; grid-template-columns:repeat(4,1fr) }
-    .stem{
-      text-align:center; padding:12px; font-weight:400; color:var(--accent);
-      background:linear-gradient(180deg,#18212b 0%, #111821 100%);
-      border:1px solid var(--edge);
-      border-radius:12px;
-      box-shadow:6px 10px 20px rgba(0,0,0,.5);
-    }
+    button:hover{ transform: translateY(-1px); }
 
     .row{display:grid; gap:12px}
     @media (min-width:720px){
@@ -93,30 +114,55 @@
       .row-3{ grid-template-columns:1fr 1fr 1fr }
     }
 
+    /* Stems as small glass tiles */
+    .stems{ display:grid; gap:12px; grid-template-columns:repeat(4,1fr) }
+    .stem{
+      text-align:center; padding:12px; font-weight:500; color:var(--accent);
+      border-radius:12px;
+      border:1px solid var(--glass-stroke);
+      background: linear-gradient(180deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,.04) 100%);
+      backdrop-filter: blur(10px) saturate(120%);
+      -webkit-backdrop-filter: blur(10px) saturate(120%);
+      box-shadow: 0 10px 20px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.10);
+    }
+
+    /* Slider — glass track with glowing thumb */
     .slider{ margin:10px 0 }
     .slider label{ display:block; margin-bottom:6px; font-size:.9rem; color:var(--accent)}
     input[type="range"]{
       width:100%; appearance:none; height:10px; border-radius:8px;
-      background:linear-gradient(90deg,#131922,#0e141c);
-      border:1px solid var(--edge);
+      background: linear-gradient(90deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border:1px solid var(--glass-stroke);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.10);
     }
     input[type="range"]::-webkit-slider-thumb{
       appearance:none; width:18px; height:18px; border-radius:50%;
-      background:var(--accent);
+      background: var(--accent);
       border:1px solid var(--accent-strong);
-      box-shadow:0 0 12px rgba(46,208,255,.6);
+      box-shadow: 0 0 14px rgba(46,208,255,.65);
       cursor:pointer;
     }
 
+    /* Chips — frosted pills */
     .chiprow{ display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 }
     .chip{
-      padding:7px 10px; border-radius:12px; font-weight:400; font-size:.9rem; color:var(--accent);
-      background:linear-gradient(180deg,#141b24 0%, #0f151c 100%);
-      border:1px solid var(--edge);
+      padding:7px 10px; border-radius:12px; font-weight:500; font-size:.9rem; color:var(--accent);
+      border:1px solid var(--glass-stroke);
+      background: linear-gradient(180deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,.05) 100%);
+      backdrop-filter: blur(8px) saturate(120%); -webkit-backdrop-filter: blur(8px) saturate(120%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.10), 0 8px 18px rgba(0,0,0,.35);
+    }
+
+    /* Fallback if backdrop-filter unsupported */
+    @supports not ((backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px))){
+      .card, button, input, select, .stem, .chip{
+        background: rgba(20,24,32,.9);
+      }
     }
   </style>
 </head>
 <body>
+  <div class="bg-streak" aria-hidden="true"></div>
 
   <div class="grid">
     <section class="card">
@@ -181,6 +227,5 @@
       <button>One-Click: Map → Generate → Mix</button>
     </section>
   </div>
-
 </body>
 </html>
